@@ -100,5 +100,3 @@ object Essentials {
   }
 
 }
-
-// https://rockthejvm.com/courses/1107955/lectures/23728905
