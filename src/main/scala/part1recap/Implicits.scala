@@ -72,7 +72,7 @@ object Implicits {
 
 
   def main(args: Array[String]): Unit = {
-    println("main")
+    println("main2")
     val catJsonStr = oneArgCaseClassSerializer[Cat].toJson(Cat("Garfield"))
     println(s"catJsonStr = ${catJsonStr}")
 
