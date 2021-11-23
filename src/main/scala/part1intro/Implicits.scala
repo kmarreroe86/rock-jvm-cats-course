@@ -1,4 +1,4 @@
-package part1recap
+package part1intro
 
 import scala.concurrent.duration.FiniteDuration
 
@@ -81,6 +81,3 @@ object Implicits {
 
   }
 }
-
-// Refresh: https://rockthejvm.com/courses/809443/lectures/14733756
-// https://rockthejvm.com/courses/1107955/lectures/23728908
