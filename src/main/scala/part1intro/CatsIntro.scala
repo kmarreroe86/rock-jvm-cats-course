@@ -48,5 +48,4 @@ object CatsIntro extends App {
 
   println(s"compareTwoToyCars = ${compareTwoToyCars}")
 
-
 }
