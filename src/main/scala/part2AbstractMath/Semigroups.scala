@@ -25,7 +25,7 @@ object Semigroups {
   // General API
   def reduceThings[T](list: List[T])(implicit semigroup: Semigroup[T]): T = list.reduce(semigroup.combine)
 
-  // TODO: Exercise: support a new type(hit: use the same pattern we used with Eq)
+  // TODO: Exercise: support a new type(hint: use the same pattern we used with Eq)
   case class Expense(id: Long, amount: Double)
 
   implicit val expenseSemigroup: Semigroup[Expense] = Semigroup.instance[Expense] { (expense1, expense2) =>
@@ -44,7 +44,7 @@ object Semigroups {
 
   //TODO: implement reduceThings2 with the |+|
   def reduceThings2[T](list: List[T])(implicit semigroup: Semigroup[T]): T = list.reduce(_ |+| _)
-  def reduceThings3[T : Semigroup](list: List[T]): T = list.reduce(_ |+| _) // Using type context, compile will has access to an implicit semigroup of T
+  def reduceThings3[T : Semigroup](list: List[T]): T = list.reduce(_ |+| _) // Using type context, compiler will has access to an implicit semigroup of T
 
   def main(args: Array[String]): Unit = {
 

@@ -71,5 +71,3 @@ object TCVariance {
     // println(organizeShow[Animal]) // will not compile - ambiguous values
   }
 }
-
-// https://rockthejvm.com/courses/1107955/lectures/23728914
