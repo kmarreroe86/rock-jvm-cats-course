@@ -84,5 +84,3 @@ object Functors {
     println(s"do10xShort() = ${do10xShort(Tree.branch(30, Tree.leaf(10), Tree.leaf(20)))}")
   }
 }
-
-// https://rockthejvm.com/courses/1107955/lectures/23728917
