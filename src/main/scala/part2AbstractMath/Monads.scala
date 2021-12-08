@@ -50,6 +50,10 @@ object Monads {
   trait MyMonad[M[_]] {
     def pure[A](value: A): M[A]   // pure constructs a M[A] of a value A Eg. List(1) => wraps an Int into a List
     def flatMap[A, B](ma: M[A])(f: A => M[B]): M[B]
+
+    // TODO: Implement this
+    def map[A, B](ma: M[A])(f: A => B): M[B] =
+      flatMap(ma)(x => pure(f(x)))
   }
 
 
@@ -63,7 +67,7 @@ object Monads {
   import cats.instances.list._
   val listMonad = Monad[List]
   val aList = listMonad.pure(3) // List(3)
-  val aTransformedList = listMonad.flatMap(aList)(x => List(x, x))  // List(3, 4)
+  val aTransformedList = listMonad.flatMap(aList)(x => List(x, x + 1))  // List(3, 4)
 
 
   // TODO 2: use a Monad[Future]
@@ -84,6 +88,32 @@ object Monads {
     monad.flatMap(ma)(a => monad.map(mb)(b => (a, b)))
 
 
+  // extension methods - weirder imports - pure, flatMap
+  import cats.syntax.applicative._  // pure is here
+  val oneOption = 1.pure[Option]  // implicit Monad[Option] will be used => Some(1)
+  val oneList = 1.pure[List]  // List(1)
+
+  import cats.syntax.flatMap._  // flatMap is here
+  val oneOptionTransformed = oneOption.flatMap(x => (x + 1).pure[Option])
+
+  // *** Monads extends Functors
+  import cats.syntax.functor._  // map is here
+  val oneOptionMapped = oneOption.map(_ + 2)
+  val oneOptionMapped2 = Monad[Option].map(Option(2))(_ + 1)
+
+  // for-comprehensions
+  val composedOptionFor = for {
+    one <- 1.pure[Option]
+    two <- 2.pure[Option]
+  } yield one + two
+
+
+//  TODO: implement a shorter version of getPairs using for-comprehensions
+  def shortGetPairs[M[_] : Monad, A, B](ma: M[A], mb: M[B]): M[(A, B)] = for {
+    x <- ma
+    y <- mb
+  } yield (x, y)
+
 
 
   def main(args: Array[String]): Unit = {
@@ -95,9 +125,9 @@ object Monads {
 
     println(s"getPairs(numbersList, charsList) = ${getPairs(numbersList, charsList)}")
     println(s"getPairs(numbersList, charsList) = ${getPairs(numbersList, charsList)}")
+    println(s"shortGetPairs(numbersList, charsList) = ${shortGetPairs(numbersList, charsList)}")
     println(s"getPairs(numberFuture, charFuture).foreach(println) = ${getPairs(numberFuture, charFuture).foreach(println)}")
+    println(s"shortGetPairs(numberFuture, charFuture).foreach(println) = ${shortGetPairs(numberFuture, charFuture).foreach(println)}")
 
   }
 }
-
-// https://rockthejvm.com/courses/1107955/lectures/23728902
