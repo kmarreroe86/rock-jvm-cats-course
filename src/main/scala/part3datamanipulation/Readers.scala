@@ -53,7 +53,7 @@ object Readers {
     1. you create the initial data structure
     2. you create a reader which specifies how that data structure will be manipulated later
     3. you can then map & flatMap the reader to produce derived information
-    4. when you need the final piece of information, you call run on the reader with the initial data structure
+    4. when you need the final piece of information, you call run() on the reader with the initial data structure
    */
 
   case class EmailService(emailReplyTo: String) {
